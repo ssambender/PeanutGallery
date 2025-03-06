@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    :root {
+        --main-1: #fcd292;
+        --main-2: #f1ba64;
+        --main-3: #e49935;
+    }
+    body {
+        background: var(--main-2);
+        width: 300px;
+        height: fit-content;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .container {
+        background: var(--main-1);
+        width: 96%;
+        height: 96%;
+        margin: 2%;
+        border-radius: 12px;
+        box-sizing: border-box;
+        padding: 8px;
+        text-align: center;
+        border: solid 4px var(--main-3);
+        color: #735a40;
+        font-family: monospace;
+        padding: 12px 0;
+    }
+    .title-heading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container button {
+        padding: 6px 8px;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: var(--main-3);
+        background: none;
+        border: solid 2px var(--main-3);
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .container button:hover {
+        color: var(--main-1);
+        background: var(--main-3);
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="title-heading">
+            <img src="icon.png" height="32px" width="32px" style="margin-right: 8px">
+            <div style="display: flex; flex-direction: column; text-align: left;">
+                <h1 style="padding: 0; margin: 0">PeanutGallery</h1>
+                <b>Live chat for live streams</b>
+            </div>
+        </div>
+
+        <br><br>
+
+        <button id="openchat">Open Chat Popup</button>
+    </div>
+<script src="popup.js"></script>
+</body>
+</html>
