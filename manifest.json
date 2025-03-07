@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "Live chat overlay for streams on ESPN+, Disney+, etc...",
   "permissions": ["storage", "tabs", "identity"],
-  "host_permissions": ["*://*.espn.com/watch/espnplus/*", "*://*.disneyplus.com/*", "*://*.twitch.tv/*"],
+  "host_permissions": ["*://*.espn.com/watch/espnplus/*", "*://*.disneyplus.com/*", "*://*.twitch.tv/*", "https://sambender.net/*"],
   "background": {
     "service_worker": "background.js"
   },

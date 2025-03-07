@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="utf-8">
+</head>
 <style>
     :root {
         --main-1: #fcd292;
         --main-2: #f1ba64;
         --main-3: #e49935;
+        --main-4: #735a40;
+        --disabled-opacity: 50%;
     }
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --main-1: #222222;
+            --main-2: #222222;
+            --main-3: #e49935;
+            --main-4: #fcd292;
+            --disabled-opacity: 20%;
+        }
+    }
+
     body {
         background: var(--main-2);
         width: 300px;
@@ -14,6 +29,7 @@
         display: flex;
         justify-content: center;
     }
+
     .container {
         background: var(--main-1);
         width: 96%;
@@ -21,18 +37,19 @@
         margin: 2%;
         border-radius: 12px;
         box-sizing: border-box;
-        padding: 8px;
         text-align: center;
         border: solid 4px var(--main-3);
-        color: #735a40;
+        color: var(--main-4);
         font-family: monospace;
         padding: 12px 0;
     }
+
     .title-heading {
         display: flex;
         justify-content: center;
         align-items: center;
     }
+
 
     .container button {
         padding: 6px 8px;
@@ -41,16 +58,135 @@
         color: var(--main-3);
         background: none;
         border: solid 2px var(--main-3);
-        cursor: pointer;
         font-weight: bold;
+        height: 38px;
     }
     .container button:hover {
         color: var(--main-1);
         background: var(--main-3);
+        cursor: pointer;
+    }
+    .container button:disabled {
+        opacity: var(--disabled-opacity);
+    }
+    .container button:disabled:hover {
+        background-color: var(--main-1);
+        color: var(--main-3);
+        cursor: default;
+    }
+
+    #supported-yes, #supported-no {
+        display: none;
+    }
+
+    #detectedSite {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    #version-num {
+        position: absolute;
+        bottom: 11px;
+        left: 15px;
+        opacity: 40%;
+        cursor: default;
+        z-index: 3;
+    }
+    #version-num:hover {
+        opacity: 75%;
+    }
+
+    /* settings */
+    #settingsContainer {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--main-1);
+        width: 92%;
+        height: 88%;
+        position: absolute;
+        top: 6%;
+        left: 4%;
+        border-radius: 8px;
+        z-index: 2;
+        padding: 12px 0;
+        box-sizing: border-box;
+        cursor: default;
+    }
+    #closesettings {
+        position: absolute;
+        top: 0;
+        left: 6px;
+        z-index: 3;
+        font-weight: 900;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 3px;
+        opacity: 70%;
+    }
+    #closesettings:hover { opacity: 100%; }
+
+    .themeContainer {
+        display: flex;
+        align-items: center;
+    }
+    .themeContainer input {
+        margin: 0 0 0 2px;
+    }
+
+    input[type="radio"] {
+        appearance: none;
+        background: none;
+        font: inherit;
+        color: var(--main-4);
+        width: 1.15em;
+        height: 1.15em;
+        border: 0.15em solid currentColor;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        cursor: pointer;
+    }
+    input[type="radio"]::before {
+        content: "";
+        width: .5em;
+        height: 0.5em;
+        border-radius: 50%;
+        transform: scale(0);
+        box-shadow: inset 1em 1em var(--main-3);
+    }
+    input[type="radio"]:checked::before {
+        transform: scale(1);
     }
 </style>
 <body>
     <div class="container">
+        <div id="settingsContainer">
+            <div id="closesettings">x</div>
+            <h1 style="padding: 0; margin: 0; font-weight: normal">Settings</h1>
+            <br>
+            <div class="themeContainer">
+                Theme:
+                Dark<input type="radio" name="theme" value="dark" style="margin-right: 6px;">
+                Light<input type="radio" name="theme" value="light" style="margin-right: 6px;">
+                System<input type="radio" name="theme" value="system" checked>
+            </div>
+            <br>
+            <div class="themeContainer">
+                Style:
+                Modern<input type="radio" name="style" value="modern" style="margin-right: 6px;">
+                Classic<input type="radio" name="style" value="classic" checked>
+            </div>
+            <br>
+            <span style="opacity: 50%">Chat position on screen...</span>
+            <br>
+            <span style="opacity: 50%">Transparency %...</span>
+            <br>
+            <span style="opacity: 50%">Seperate popout window?...</span>
+        </div>
+
+        <div id="version-num" title="github.com/ssambender">v1.0.0</div>
+
         <div class="title-heading">
             <img src="icon.png" height="32px" width="32px" style="margin-right: 8px">
             <div style="display: flex; flex-direction: column; text-align: left;">
@@ -61,7 +197,19 @@
 
         <br><br>
 
-        <button id="openchat">Open Chat Popup</button>
+        Detected site: <span id="detectedSite">disney</span>
+
+        <br>
+
+        <span id="supported-yes" style="color: #158d15">This site is supported <b>✓</b></span>
+        <span id="supported-no" style="color: #c52626">This site is NOT supported <b>✗</b></span>
+
+        <br><br>
+
+        <div style="display: flex; justify-content: center; gap: 15px">
+            <button id="opensettings" style="width: 38px; padding: 6px">⚙️</button>
+            <button id="openchat" disabled>Open Chat Popup</button>
+        </div>
     </div>
 <script src="popup.js"></script>
 </body>
